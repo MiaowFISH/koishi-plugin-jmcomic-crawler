@@ -210,15 +210,15 @@ class QueueManager {
       }
 
       job.backendTask = task;
-      if (task.status !== lastStatus) {
-        lastStatus = task.status;
-        const progressText = task.total_images ? `${task.progress}/${task.total_images}` : `${task.progress}`;
-        await this.updateStatus(
-          session,
-          job,
-          `状态：${task.status} · 阶段：${task.stage ?? "-"} · 进度：${progressText}`,
-        );
-      }
+      // if (task.status !== lastStatus) {
+      //   lastStatus = task.status;
+      //   const progressText = task.total_images ? `${task.progress}/${task.total_images}` : `${task.progress}`;
+      //   await this.updateStatus(
+      //     session,
+      //     job,
+      //     `状态：${task.status} · 阶段：${task.stage ?? "-"} · 进度：${progressText}`,
+      //   );
+      // }
 
       if (task.status === "done") {
         await this.updateStatus(session, job, "打包完成，开始发送文件...");
@@ -237,7 +237,7 @@ class QueueManager {
         }
         // 收尾
         await this.recallStatus(session, job);
-        await safeSend(session, `完成 [${submit.album_id}]`);
+        await safeSend(session, `完成 [${submit.album_id}] | 密码：${task.password || "无"}`);
         break;
       }
 
