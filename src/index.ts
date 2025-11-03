@@ -157,7 +157,7 @@ class QueueManager {
     const { session, submit } = job;
     const channelId = session.channelId as string;
     // 进入运行阶段提示
-    job.statusMsg = await safeSend(session, `开始下载 [${submit.album_id}]，正在创建任务...`);
+    // job.statusMsg = await safeSend(session, `开始下载 [${submit.album_id}]，正在创建任务...`);
 
     // 补全参数：强制加密与默认密码
     const finalSubmit: Submit = {
